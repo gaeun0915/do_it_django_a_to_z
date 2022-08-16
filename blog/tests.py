@@ -12,7 +12,7 @@ class TestView(TestCase) :
         self.assertIn('About Me', navbar.text)
 
         logo_btn = navbar.find('a',text="스마트 부산")
-        self.assertEqual(log_btn.attrs['href'],'/')
+        self.assertEqual(logo_btn.attrs['href'],'/')
 
         homebtn = navbar.find('a', text="Home")
         self.assertEqual(home_btn.attrs['href'], '/')
