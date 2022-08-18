@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from markdownx.models import MarkdownxField
+from markdownx.utils import markdown
 import os
 
 class Category(models.Model) :
@@ -28,7 +30,7 @@ class Tag(models.Model) :
 class Post(models.Model) :
     title = models.CharField(max_length=30) # 문자를 담는 필드를 만든다.
     hook_text = models.CharField(max_length=100, blank=True)
-    content = models.TextField() # 문자열의 길이 제한없는 TextField를 사용한다.
+    content = MarkdownxField() # 문자열의 길이 제한없는 TextField를 사용한다.
 
     created_at = models.DateTimeField(auto_now_add=True) # 월, 일,시,분,초를 기록할 수 있는 datetimefield를 가져온다.
     updated_at = models.DateTimeField(auto_now=True)
@@ -52,5 +54,8 @@ class Post(models.Model) :
 
     def get_file_ext(self):
         return self.get_file_name().split('.')[-1]
+
+    def get_content_markdown(self):
+        return markdown(self.content)
 
 
