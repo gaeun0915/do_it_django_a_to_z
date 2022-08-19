@@ -21,23 +21,27 @@
                 </ul>
                 <ul class="navbar-nav ms-auto">
                     {% if user.is_authenticated %}
-                    <li class="nav-item dropdown">
+                    <a class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="ture" aria-expanded="false">
-                            {{ user.username }}
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="/accounts/logout/">Log Out</a>
-                        </div>
-                    </li>
-                    {% else %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#loginModal">Log In</a>
-                    </li>
+                        {% if user.socialaccount_set.first.get_avatar_url %}
+                            <img class ="rounded-circle"
+                                 width="25px"
+                                 src="{{ user.socialaccount_set.first.get_avatar_url }}"
+                                 alt ="{{ user.username }}">
+                        {% else %}
+                            <img class = "rounded-circle"
+                                 width="25px"
+                                 src="https://doitdjango.com/avatar/id/143/e3445497d896a175/svg/{{ user.email }}"
+                                 alt="{{ user.username }}">
+                        {% endif %}
+
+                        {{ user.username }}
+                    </a>
                     {% endif %}
                 </ul>
             </div>
         </div>
-    </nav>
+</nav>
     <!-- Modal -->
     <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
         <div class="modal-dialog">
